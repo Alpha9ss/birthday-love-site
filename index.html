@@ -6,57 +6,125 @@
 <title>Happy Birthday ❤️</title>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-    margin:0;
-    overflow:hidden;
-    background:black;
-    color:white;
-    font-family:Arial;
-    text-align:center;
+overflow:hidden;
+background:black;
+font-family:Arial;
+color:white;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
 }
 
 canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-1;
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
 .container{
-    margin-top:20vh;
-    animation:fade 2s;
+padding:20px;
+animation:fade 2s;
+max-width:90%;
 }
 
-h1{
-    font-size:50px;
+#countdown{
+font-size:120px;
+font-weight:bold;
+text-shadow:0 0 20px white;
+}
+
+#birthday{
+display:none;
+animation:fade 2s;
+}
+
+#birthday h1{
+font-size:50px;
+margin-bottom:20px;
+text-shadow:0 0 15px pink;
 }
 
 button{
-    padding:15px 30px;
-    font-size:20px;
-    border:none;
-    border-radius:20px;
-    background:pink;
-    color:white;
+padding:15px 35px;
+font-size:20px;
+border:none;
+border-radius:30px;
+background:pink;
+color:white;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 0 15px pink;
+}
+
+button:hover{
+transform:scale(1.1);
 }
 
 #letter{
-    display:none;
-    margin-top:30px;
-    font-size:20px;
-    padding:20px;
+display:none;
+margin-top:30px;
+animation:fade 1.5s;
 }
 
-img{
-    width:250px;
-    border-radius:20px;
-    margin-top:20px;
+.message{
+font-size:22px;
+line-height:1.8;
+background:rgba(255,255,255,0.08);
+padding:25px;
+border-radius:20px;
+backdrop-filter:blur(5px);
+}
+
+.photos{
+margin-top:25px;
+display:flex;
+gap:20px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.photos img{
+width:240px;
+height:320px;
+object-fit:cover;
+border-radius:20px;
+box-shadow:0 0 20px rgba(255,255,255,0.4);
+transition:0.5s;
+}
+
+.photos img:hover{
+transform:scale(1.05);
+}
+
+.final{
+margin-top:25px;
+font-size:24px;
+color:pink;
+text-shadow:0 0 10px pink;
 }
 
 @keyframes fade{
-    from{opacity:0;}
-    to{opacity:1;}
+from{
+opacity:0;
+transform:translateY(20px);
 }
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
 </style>
 </head>
 
@@ -68,23 +136,46 @@ img{
 
 <h1 id="countdown">3</h1>
 
-<div id="main" style="display:none;">
+<div id="birthday">
 
-<h1>Happy Birthday ❤️</h1>
+<h1>Happy Birthday My Love ❤️</h1>
 
-<button onclick="openLetter()">Open Letter 💌</button>
+<button onclick="openLetter()">Open Your Letter 💌</button>
 
 <div id="letter">
-<p>
-Happy Birthday my love ❤️<br><br>
-Even though we are far apart,
-you always make my life happier.
-Thank you for staying beside me.
-I love you so much.
-</p>
 
-<img src="YOURPHOTO1.jpg">
-<img src="YOURPHOTO2.jpg">
+<div class="message">
+
+Happy Birthday to the most special person in my life ❤️
+<br><br>
+
+Even though we are far apart,
+you always make my days brighter.
+Thank you for loving me,
+staying with me,
+and making me feel happy every single day.
+<br><br>
+
+I wish I could celebrate beside you today.
+But until that day comes,
+please remember that my heart is always with you.
+<br><br>
+
+I love you so much ❤️
+
+</div>
+
+<div class="photos">
+
+<img src="photo1.jpg">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+
+</div>
+
+<div class="final">
+Forever yours ❤️
+</div>
 
 </div>
 
@@ -94,64 +185,87 @@ I love you so much.
 
 <script>
 
-let count=3;
-let countdown=document.getElementById("countdown");
+// countdown
 
-let interval=setInterval(()=>{
+let count = 3;
+
+const countdown = document.getElementById("countdown");
+const birthday = document.getElementById("birthday");
+
+let interval = setInterval(() => {
+
 count--;
 
-if(count>0){
-countdown.innerText=count;
+if(count > 0){
+countdown.innerText = count;
 }else{
+
 clearInterval(interval);
-countdown.style.display="none";
-document.getElementById("main").style.display="block";
+
+countdown.style.display = "none";
+birthday.style.display = "block";
+
 }
+
 },1000);
 
+
+// open letter
+
 function openLetter(){
-document.getElementById("letter").style.display="block";
+
+document.getElementById("letter").style.display = "block";
+
 }
+
 
 // stars background
 
-const canvas=document.getElementById("stars");
-const ctx=canvas.getContext("2d");
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
 
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-let stars=[];
+let stars = [];
 
-for(let i=0;i<200;i++){
+for(let i = 0; i < 250; i++){
+
 stars.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-r:Math.random()*2
+x: Math.random() * canvas.width,
+y: Math.random() * canvas.height,
+size: Math.random() * 2,
+speed: Math.random() * 0.5 + 0.2
 });
+
 }
 
-function draw(){
+function animate(){
+
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-ctx.fillStyle="white";
+ctx.fillStyle = "white";
 
-stars.forEach(star=>{
+stars.forEach(star => {
+
 ctx.beginPath();
-ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
+ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
 ctx.fill();
 
-star.y+=0.2;
+star.y += star.speed;
 
-if(star.y>canvas.height){
-star.y=0;
+if(star.y > canvas.height){
+star.y = 0;
+star.x = Math.random() * canvas.width;
 }
+
 });
 
-requestAnimationFrame(draw);
+requestAnimationFrame(animate);
+
 }
 
-draw();
+animate();
 
 </script>
 
