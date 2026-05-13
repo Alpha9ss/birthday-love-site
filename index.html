@@ -113,7 +113,19 @@ font-size:24px;
 color:pink;
 text-shadow:0 0 10px pink;
 }
+@keyframes floatUp{
 
+0%{
+transform:translateY(0);
+opacity:1;
+}
+
+100%{
+transform:translateY(-120vh);
+opacity:0;
+}
+
+}
 @keyframes fade{
 from{
 opacity:0;
@@ -129,7 +141,9 @@ transform:translateY(0);
 </head>
 
 <body>
-
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mp3">
+</audio>
 <canvas id="stars"></canvas>
 
 <div class="container">
@@ -266,7 +280,26 @@ requestAnimationFrame(animate);
 }
 
 animate();
+setInterval(() => {
 
+let heart = document.createElement("div");
+
+heart.innerHTML = "❤️";
+
+heart.style.position = "fixed";
+heart.style.left = Math.random() * window.innerWidth + "px";
+heart.style.top = "100%";
+heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+heart.style.animation = "floatUp 6s linear";
+heart.style.zIndex = "999";
+
+document.body.appendChild(heart);
+
+setTimeout(() => {
+heart.remove();
+},6000);
+
+},500);
 </script>
 
 </body>
