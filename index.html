@@ -4,22 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday ❤️</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+background:black;
+color:white;
+font-family:'Poppins',sans-serif;
+overflow:hidden;
+height:100vh;
+text-align:center;
 }
-#startScreen{
+
+canvas{
 position:fixed;
 top:0;
 left:0;
-width:100%;
-height:100%;
+z-index:-3;
+}
+
+.nebula{
+position:fixed;
+width:600px;
+height:600px;
+background:radial-gradient(circle,rgba(255,105,180,.35),transparent 70%);
+top:10%;
+left:50%;
+transform:translateX(-50%);
+filter:blur(45px);
+z-index:-2;
+animation:pulseGlow 6s infinite alternate;
+}
+
+#rotateScreen{
+position:fixed;
+inset:0;
 background:black;
+z-index:99999;
 display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:30px;
+}
+
+#rotateScreen h1{
+font-size:35px;
+color:pink;
+text-shadow:0 0 15px pink;
+}
+
+#rotateScreen p{
+margin-top:15px;
+font-size:18px;
+}
+
+#startScreen{
+position:fixed;
+inset:0;
+background:black;
+display:none;
 justify-content:center;
 align-items:center;
 z-index:9999;
@@ -27,128 +74,61 @@ font-size:40px;
 text-shadow:0 0 20px pink;
 cursor:pointer;
 }
-body{
-overflow:hidden;
-background:black;
-font-family:'Poppins', sans-serif;
-color:white;
+
+.main{
 height:100vh;
+width:100vw;
 display:flex;
 justify-content:center;
 align-items:center;
-text-align:center;
-}
-.nebula{
-position:fixed;
-width:500px;
-height:500px;
-background:radial-gradient(circle, rgba(255,105,180,0.35), transparent 70%);
-top:20%;
-left:50%;
-transform:translateX(-50%);
-filter:blur(40px);
-z-index:-2;
-animation:pulseGlow 6s infinite alternate;
-}
-
-@keyframes pulseGlow{
-from{
-opacity:0.4;
-transform:translateX(-50%) scale(1);
-}
-to{
-opacity:0.8;
-transform:translateX(-50%) scale(1.3);
-}
-}
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
+overflow-y:auto;
+padding:20px;
 }
 
 .container{
+max-width:95vw;
+max-height:95vh;
+overflow-y:auto;
 padding:20px;
-animation:fade 2s;
-max-width:90%;
 }
 
 #countdown{
-font-size:120px;
-font-weight:bold;
+font-size:90px;
 text-shadow:0 0 20px white;
 }
 
-#birthday{
-display:none;
-animation:fade 2s;
-}
-
+#birthday{display:none;}
 
 #birthday h1{
-font-size:50px;
-margin-bottom:20px;
-text-shadow:0 0 15px pink;
-font-family:'Great Vibes', cursive;
+font-family:'Great Vibes',cursive;
+font-size:48px;
 letter-spacing:2px;
+color:pink;
+text-shadow:0 0 15px pink;
+margin-bottom:15px;
 }
 
-button{
-padding:15px 35px;
-font-size:20px;
-border:none;
-border-radius:30px;
-background:pink;
-color:white;
-cursor:pointer;
-transition:0.3s;
-box-shadow:0 0 15px pink;
-}
-
-button:hover{
-transform:scale(1.1);
-}
-
-#letter{
-display:none;
-margin-top:30px;
-animation:fade 1.5s;
-}
-
-.message{
-font-size:22px;
-line-height:1.8;
-background:rgba(255,255,255,0.08);
-padding:25px;
-border-radius:20px;
-backdrop-filter:blur(5px);
-}
 .envelope-container{
-margin-top:30px;
+margin-top:15px;
 cursor:pointer;
-animation:fade 2s;
 }
 
 .envelope{
 position:relative;
-width:260px;
-height:180px;
+width:220px;
+height:140px;
 background:#ff4f81;
 margin:auto;
 border-radius:10px;
 overflow:hidden;
-box-shadow:0 0 25px rgba(255,105,180,0.6);
+box-shadow:0 0 25px rgba(255,105,180,.7);
 }
 
 .flap{
 position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
+inset:0;
 background:#ff7aa2;
-clip-path:polygon(0 0, 50% 55%, 100% 0);
+clip-path:polygon(0 0,50% 55%,100% 0);
 transform-origin:top;
 transition:1s;
 z-index:2;
@@ -166,419 +146,312 @@ border-radius:10px;
 display:flex;
 justify-content:center;
 align-items:center;
-font-size:40px;
+font-size:38px;
 transition:1s;
 z-index:1;
 }
 
-.envelope.open .flap{
-transform:rotateX(180deg);
-}
-
-.envelope.open .letter-inside{
-transform:translateY(-120px);
-}
+.envelope.open .flap{transform:rotateX(180deg);}
+.envelope.open .letter-inside{transform:translateY(-100px);}
 
 .tap-text{
+margin-top:12px;
+font-size:18px;
+color:pink;
+}
+
+#letter{
+display:none;
 margin-top:15px;
-font-size:22px;
-color:pink;
-text-shadow:0 0 10px pink;
-}
-.photos{
-margin-top:25px;
-display:flex;
-gap:20px;
-justify-content:center;
-flex-wrap:wrap;
+animation:fade 1.5s;
 }
 
-.photos img{
-width:240px;
-height:320px;
-object-fit:cover;
+.message{
+font-size:17px;
+line-height:1.6;
+background:rgba(255,255,255,.09);
+padding:18px;
 border-radius:20px;
-box-shadow:0 0 20px rgba(255,255,255,0.4);
-transition:0.5s;
-opacity:0;
+backdrop-filter:blur(5px);
+max-width:760px;
+margin:auto;
 }
 
-.photos img:hover{
-transform:scale(1.05);
+.closeBtn{
+margin-top:15px;
+padding:10px 25px;
+border:none;
+border-radius:25px;
+background:pink;
+color:white;
+font-size:16px;
+box-shadow:0 0 15px pink;
 }
 
-.final{
-margin-top:25px;
-font-size:24px;
-color:pink;
-text-shadow:0 0 10px pink;
-}
-@keyframes floatUp{
-
-0%{
-transform:translateY(0);
-opacity:1;
+.sticker{
+position:fixed;
+font-size:30px;
+animation:floatSticker 7s linear forwards;
+z-index:20;
 }
 
-100%{
-transform:translateY(-120vh);
-opacity:0;
-}
-
-}
-@keyframes revealPhoto{
-
-from{
-opacity:0;
-transform:translateY(30px) scale(0.9);
-}
-
-to{
-opacity:1;
-transform:translateY(0) scale(1);
-}
-
-}
 #heartGallery{
 display:none;
-margin-top:35px;
+position:relative;
+height:95vh;
+width:100vw;
+overflow:hidden;
+}
+
+.flying-photo{
+position:absolute;
+width:55px;
+height:55px;
+object-fit:cover;
+border-radius:12px;
+box-shadow:0 0 12px white;
+animation:flyHeart 2.5s forwards;
+}
+
+#cake{
+display:none;
+font-size:110px;
 animation:fade 2s;
 }
 
-#heartGallery h2{
-font-family:'Great Vibes', cursive;
-font-size:42px;
+#cake h2{
+font-family:'Great Vibes',cursive;
+font-size:46px;
 color:pink;
 text-shadow:0 0 15px pink;
-margin-bottom:20px;
 }
 
-.heart{
-position:relative;
-width:300px;
-height:270px;
-margin:0 auto;
-}
-
-.heart img{
-position:absolute;
-width:80px;
-height:80px;
-object-fit:cover;
-border-radius:15px;
-box-shadow:0 0 15px rgba(255,255,255,0.6);
-}
-
-.heart img:nth-child(1){left:110px;top:0;}
-.heart img:nth-child(2){left:55px;top:35px;}
-.heart img:nth-child(3){left:165px;top:35px;}
-.heart img:nth-child(4){left:25px;top:95px;}
-.heart img:nth-child(5){left:195px;top:95px;}
-.heart img:nth-child(6){left:55px;top:155px;}
-.heart img:nth-child(7){left:165px;top:155px;}
-.heart img:nth-child(8){left:110px;top:210px;}
-.heart img:nth-child(9){left:110px;top:85px;}
-
-.sparkle{
-position:fixed;
-pointer-events:none;
-font-size:18px;
-z-index:999;
-animation:sparkleFade 1s forwards;
-}
-
-@keyframes sparkleFade{
-from{
-opacity:1;
-transform:scale(1);
-}
-to{
-opacity:0;
-transform:scale(0) translateY(-30px);
-}
-}
 @keyframes fade{
-from{
-opacity:0;
-transform:translateY(20px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 
+@keyframes pulseGlow{
+from{opacity:.4;transform:translateX(-50%) scale(1);}
+to{opacity:.9;transform:translateX(-50%) scale(1.3);}
+}
+
+@keyframes floatSticker{
+from{transform:translateY(100vh) rotate(0);opacity:1;}
+to{transform:translateY(-120vh) rotate(360deg);opacity:0;}
+}
+
+@keyframes flyHeart{
+from{transform:scale(.2);opacity:0;}
+to{transform:scale(1);opacity:1;}
+}
+
+@media (orientation: landscape){
+#rotateScreen{display:none;}
+#startScreen{display:flex;}
+}
+
+@media (orientation: portrait){
+#rotateScreen{display:flex;}
+#startScreen{display:none!important;}
+}
 </style>
 </head>
 
 <body>
+
 <audio id="bgMusic" loop>
 <source src="music.mp3" type="audio/mp3">
 </audio>
 
-<div id="startScreen">
-<h1>Tap To Open ❤️</h1>
+<div id="rotateScreen">
+<h1>Rotate your phone 💕</h1>
+<p>Please turn your phone sideways to open your surprise ✨</p>
 </div>
+
+<div id="startScreen">
+Tap To Open ❤️
+</div>
+
 <canvas id="stars"></canvas>
 <div class="nebula"></div>
+
+<div class="main">
 <div class="container">
 
 <h1 id="countdown">3</h1>
 
 <div id="birthday">
-
 <h1>Happy Birthday My Love ❤️</h1>
 
 <div class="envelope-container" onclick="openLetter()">
-
 <div class="envelope">
-
 <div class="flap"></div>
-
-<div class="letter-inside">
-💌
+<div class="letter-inside">💌</div>
 </div>
-
-</div>
-
-<p class="tap-text">Tap The Letter ❤️</p>
-
+<p class="tap-text">Tap the letter ❤️</p>
 </div>
 
 <div id="letter">
-
 <div class="message">
 <p id="typewriter"></p>
 </div>
-
-<div class="photos">
-
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-
-</div>
-
-<div id="heartGallery">
-
-<h2>Our Little Memories ❤️</h2>
-
-<div class="heart">
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-</div>
-
-<p class="final">
-Distance never stopped me from loving you ❤️
-</p>
-
+<button class="closeBtn" onclick="closeLetter()">Close Letter 💕</button>
 </div>
 </div>
 
+<div id="heartGallery"></div>
+
+<div id="cake">
+<div>🎂</div>
+<h2>Happy Birthday, my love ❤️</h2>
 </div>
 
+</div>
 </div>
 
 <script>
+const startScreen=document.getElementById("startScreen");
+const music=document.getElementById("bgMusic");
 
-// countdown
-const startScreen = document.getElementById("startScreen");
-const music = document.getElementById("bgMusic");
-
-startScreen.addEventListener("click", () => {
-
+startScreen.addEventListener("click",()=>{
 music.play();
-
-startScreen.style.display = "none";
-
+startScreen.style.display="none";
+startCountdown();
 });
-let count = 3;
 
-const countdown = document.getElementById("countdown");
-const birthday = document.getElementById("birthday");
+function startCountdown(){
+let count=3;
+const countdown=document.getElementById("countdown");
+const birthday=document.getElementById("birthday");
 
-let interval = setInterval(() => {
-
+let interval=setInterval(()=>{
 count--;
-
-if(count > 0){
-countdown.innerText = count;
+if(count>0){
+countdown.innerText=count;
 }else{
-
 clearInterval(interval);
-
-countdown.style.display = "none";
-birthday.style.display = "block";
-
+countdown.style.display="none";
+birthday.style.display="block";
+}
+},1000);
 }
 
-},1000);
+const text=`Happy Birthday to the most special person in my life ❤️
 
+Even though we are far apart, you always make my days brighter.
 
-const text = `Happy Birthday to the most special person in my life ❤️
-
-Even though we are far apart,
-you always make my days brighter.
-
-Thank you for loving me,
-staying with me,
-and making me feel happy every single day.
+Thank you for loving me, staying with me, and making me feel happy every single day.
 
 I wish I could celebrate beside you today.
 
-But until that day comes,
-please remember that my heart is always with you.
+But until that day comes, please remember that my heart is always with you.
 
 I love you so much ❤️`;
 
-let index = 0;
+let index=0;
 
 function typeWriter(){
-
-if(index < text.length){
-
-document.getElementById("typewriter").innerHTML += text.charAt(index);
-
+if(index<text.length){
+document.getElementById("typewriter").innerHTML+=text.charAt(index);
 index++;
-
-setTimeout(typeWriter,45);
-
-}else{
-
-showPhotos();
-
+setTimeout(typeWriter,38);
+}
 }
 
-}
-function showPhotos(){
-
-const photos = document.querySelectorAll(".photos img");
-
-photos.forEach((photo,i)=>{
-
-setTimeout(()=>{
-
-photo.style.opacity = "1";
-photo.style.animation = "revealPhoto 1.5s forwards";
-
-}, i * 1500);
-
-});
-
-setTimeout(()=>{
-
-document.getElementById("heartGallery").style.display = "block";
-
-}, photos.length * 1500 + 1500);
-
-}
 function openLetter(){
-
-const envelope = document.querySelector(".envelope");
-
-envelope.classList.add("open");
-
-setTimeout(() => {
-
-document.getElementById("letter").style.display = "block";
+document.querySelector(".envelope").classList.add("open");
+setTimeout(()=>{
+document.querySelector(".envelope-container").style.display="none";
+document.getElementById("letter").style.display="block";
 typeWriter();
-document.querySelector(".envelope-container").style.display = "none";
-
-},1200);
-
+},1000);
 }
 
+function closeLetter(){
+document.getElementById("birthday").style.display="none";
+document.getElementById("letter").style.display="none";
+showHeartPhotos();
+}
 
-// stars background
+function showHeartPhotos(){
+const gallery=document.getElementById("heartGallery");
+gallery.style.display="block";
 
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
+const photos=[
+"photo1.jpg","photo2.jpg","photo3.jpg",
+"photo1.jpg","photo2.jpg","photo3.jpg",
+"photo1.jpg","photo2.jpg","photo3.jpg",
+"photo1.jpg","photo2.jpg","photo3.jpg",
+"photo1.jpg","photo2.jpg","photo3.jpg"
+];
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const positions=[
+[50,10],[42,16],[58,16],[35,25],[65,25],
+[30,38],[70,38],[36,52],[64,52],
+[43,65],[57,65],[50,78],[50,32],[50,48],[50,60]
+];
 
-let stars = [];
-
-for(let i = 0; i < 250; i++){
-
-stars.push({
-x: Math.random() * canvas.width,
-y: Math.random() * canvas.height,
-size: Math.random() * 2,
-speed: Math.random() * 0.5 + 0.2
+photos.forEach((src,i)=>{
+setTimeout(()=>{
+let img=document.createElement("img");
+img.src=src;
+img.className="flying-photo";
+img.style.left=positions[i][0]+"%";
+img.style.top=positions[i][1]+"%";
+img.style.transform="translate(-50%,-50%)";
+gallery.appendChild(img);
+},i*250);
 });
 
+setTimeout(()=>{
+gallery.style.display="none";
+document.getElementById("cake").style.display="block";
+},photos.length*250+3500);
+}
+
+setInterval(()=>{
+let stickers=["💖","✨","🎀","🌸","💕","🥰","💫"];
+let s=document.createElement("div");
+s.className="sticker";
+s.innerHTML=stickers[Math.floor(Math.random()*stickers.length)];
+s.style.left=Math.random()*100+"vw";
+s.style.top="100vh";
+document.body.appendChild(s);
+setTimeout(()=>s.remove(),7000);
+},900);
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+
+let stars=[];
+for(let i=0;i<250;i++){
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2,
+speed:Math.random()*0.5+0.2
+});
 }
 
 function animate(){
-
 ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle = "white";
-
-stars.forEach(star => {
-
+ctx.fillStyle="white";
+stars.forEach(star=>{
 ctx.beginPath();
-ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+ctx.arc(star.x,star.y,star.size,0,Math.PI*2);
 ctx.fill();
-
-star.y += star.speed;
-
-if(star.y > canvas.height){
-star.y = 0;
-star.x = Math.random() * canvas.width;
+star.y+=star.speed;
+if(star.y>canvas.height){
+star.y=0;
+star.x=Math.random()*canvas.width;
 }
-
 });
-
 requestAnimationFrame(animate);
-
 }
-
 animate();
-document.addEventListener("mousemove", (e)=>{
-
-let sparkle = document.createElement("div");
-
-sparkle.className = "sparkle";
-sparkle.innerHTML = "✨";
-sparkle.style.left = e.clientX + "px";
-sparkle.style.top = e.clientY + "px";
-
-document.body.appendChild(sparkle);
-
-setTimeout(()=>{
-sparkle.remove();
-},1000);
-
-});
-setInterval(() => {
-
-let heart = document.createElement("div");
-
-heart.innerHTML = "❤️";
-
-heart.style.position = "fixed";
-heart.style.left = Math.random() * window.innerWidth + "px";
-heart.style.top = "100%";
-heart.style.fontSize = (Math.random() * 20 + 20) + "px";
-heart.style.animation = "floatUp 6s linear";
-heart.style.zIndex = "999";
-
-document.body.appendChild(heart);
-
-setTimeout(() => {
-heart.remove();
-},6000);
-
-},500);
 </script>
 
 </body>
