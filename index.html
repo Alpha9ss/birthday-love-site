@@ -176,6 +176,7 @@ object-fit:cover;
 border-radius:20px;
 box-shadow:0 0 20px rgba(255,255,255,0.4);
 transition:0.5s;
+opacity:0;
 }
 
 .photos img:hover{
@@ -198,6 +199,19 @@ opacity:1;
 100%{
 transform:translateY(-120vh);
 opacity:0;
+}
+
+}
+@keyframes revealPhoto{
+
+from{
+opacity:0;
+transform:translateY(30px) scale(0.9);
+}
+
+to{
+opacity:1;
+transform:translateY(0) scale(1);
 }
 
 }
@@ -252,24 +266,7 @@ transform:translateY(0);
 <div id="letter">
 
 <div class="message">
-
-Happy Birthday to the most special person in my life ❤️
-<br><br>
-
-Even though we are far apart,
-you always make my days brighter.
-Thank you for loving me,
-staying with me,
-and making me feel happy every single day.
-<br><br>
-
-I wish I could celebrate beside you today.
-But until that day comes,
-please remember that my heart is always with you.
-<br><br>
-
-I love you so much ❤️
-
+<p id="typewriter"></p>
 </div>
 
 <div class="photos">
@@ -326,8 +323,57 @@ birthday.style.display = "block";
 },1000);
 
 
-// open letter
+const text = `Happy Birthday to the most special person in my life ❤️
 
+Even though we are far apart,
+you always make my days brighter.
+
+Thank you for loving me,
+staying with me,
+and making me feel happy every single day.
+
+I wish I could celebrate beside you today.
+
+But until that day comes,
+please remember that my heart is always with you.
+
+I love you so much ❤️`;
+
+let index = 0;
+
+function typeWriter(){
+
+if(index < text.length){
+
+document.getElementById("typewriter").innerHTML += text.charAt(index);
+
+index++;
+
+setTimeout(typeWriter,45);
+
+}else{
+
+showPhotos();
+
+}
+
+}
+function showPhotos(){
+
+const photos = document.querySelectorAll(".photos img");
+
+photos.forEach((photo,i)=>{
+
+setTimeout(()=>{
+
+photo.style.opacity = "1";
+photo.style.animation = "revealPhoto 1.5s forwards";
+
+}, i * 1500);
+
+});
+
+}
 function openLetter(){
 
 const envelope = document.querySelector(".envelope");
@@ -337,7 +383,7 @@ envelope.classList.add("open");
 setTimeout(() => {
 
 document.getElementById("letter").style.display = "block";
-
+typeWriter();
 document.querySelector(".envelope-container").style.display = "none";
 
 },1200);
