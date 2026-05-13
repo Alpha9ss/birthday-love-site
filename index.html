@@ -197,16 +197,26 @@ z-index:20;
 
 #heartGallery{
 display:none;
-position:relative;
-height:95vh;
+position:fixed;
+inset:0;
 width:100vw;
+height:100vh;
 overflow:hidden;
+z-index:50;
 }
-
+#heartStage{
+position:absolute;
+left:50%;
+top:50%;
+width:620px;
+height:360px;
+transform:translate(-50%,-50%) scale(var(--heartScale));
+transform-origin:center;
+}
 .flying-photo{
 position:absolute;
-width:56px;
-height:70px;
+width:62px;
+height:78px;
 object-fit:cover;
 border-radius:14px;
 border:4px solid white;
@@ -382,6 +392,13 @@ const gallery=document.getElementById("heartGallery");
 gallery.innerHTML="";
 gallery.style.display="block";
 
+const stage=document.createElement("div");
+stage.id="heartStage";
+gallery.appendChild(stage);
+
+const scale=Math.min(window.innerWidth/700, window.innerHeight/430, 1);
+stage.style.setProperty("--heartScale", scale);
+
 const photos=[
 "photo1.jpg","photo2.jpg","photo3.jpg","photo4.jpg","photo5.jpg",
 "photo6.jpg","photo7.jpg","photo8.jpg","photo9.jpg","photo10.jpg",
@@ -391,50 +408,41 @@ const photos=[
 ];
 
 const positions=[
-[44,13,-8],[49,11,4],[54,13,8],
+[250,25,-6],[315,15,3],[380,25,7],
 
-[37,17,-14],[61,17,14],
-[31,24,-18],[67,24,18],
+[190,55,-12],[445,55,12],
+[140,100,-18],[495,100,18],
 
-[27,34,-12],[71,34,12],
-[28,45,8],[70,45,-8],
+[105,165,-10],[530,165,10],
+[130,225,8],[505,225,-8],
 
-[33,56,14],[65,56,-14],
-[39,66,-10],[59,66,10],
-[49,76,0],
+[190,275,12],[445,275,-12],
+[250,315,-8],[380,315,8],
+[315,335,0],
 
-[39,30,8],[59,30,-8],
-[34,42,-7],[64,42,7],
-[40,54,10],[58,54,-10],
-[45,63,-7],[53,63,7],
-[49,68,0]
+[245,105,6],[385,105,-6],
+[205,165,-7],[425,165,7],
+[250,225,9],[380,225,-9],
+[285,280,-6],[345,280,6],
+[315,235,0]
 ];
 
 photos.forEach((src,i)=>{
-
 setTimeout(()=>{
-
 let img=document.createElement("img");
-
 img.src=src;
 img.className="flying-photo";
-
-img.style.left=positions[i][0]+"%";
-img.style.top=positions[i][1]+"%";
+img.style.left=positions[i][0]+"px";
+img.style.top=positions[i][1]+"px";
 img.style.transform=`translate(-50%,-50%) rotate(${positions[i][2]}deg)`;
-
-gallery.appendChild(img);
-
-},i*130);
-
+stage.appendChild(img);
+},i*120);
 });
 
 setTimeout(()=>{
-
 gallery.style.display="none";
 document.getElementById("cake").style.display="block";
-
-},photos.length*130+7000);
+},photos.length*120+7000);
 
 }
 setInterval(()=>{
