@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday ❤️</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    background:black;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+.container{
+    margin-top:20vh;
+    animation:fade 2s;
+}
+
+h1{
+    font-size:50px;
+}
+
+button{
+    padding:15px 30px;
+    font-size:20px;
+    border:none;
+    border-radius:20px;
+    background:pink;
+    color:white;
+}
+
+#letter{
+    display:none;
+    margin-top:30px;
+    font-size:20px;
+    padding:20px;
+}
+
+img{
+    width:250px;
+    border-radius:20px;
+    margin-top:20px;
+}
+
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="container">
+
+<h1 id="countdown">3</h1>
+
+<div id="main" style="display:none;">
+
+<h1>Happy Birthday ❤️</h1>
+
+<button onclick="openLetter()">Open Letter 💌</button>
+
+<div id="letter">
+<p>
+Happy Birthday my love ❤️<br><br>
+Even though we are far apart,
+you always make my life happier.
+Thank you for staying beside me.
+I love you so much.
+</p>
+
+<img src="YOURPHOTO1.jpg">
+<img src="YOURPHOTO2.jpg">
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let count=3;
+let countdown=document.getElementById("countdown");
+
+let interval=setInterval(()=>{
+count--;
+
+if(count>0){
+countdown.innerText=count;
+}else{
+clearInterval(interval);
+countdown.style.display="none";
+document.getElementById("main").style.display="block";
+}
+},1000);
+
+function openLetter(){
+document.getElementById("letter").style.display="block";
+}
+
+// stars background
+
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
+
+for(let i=0;i<200;i++){
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2
+});
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="white";
+
+stars.forEach(star=>{
+ctx.beginPath();
+ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
+ctx.fill();
+
+star.y+=0.2;
+
+if(star.y>canvas.height){
+star.y=0;
+}
+});
+
+requestAnimationFrame(draw);
+}
+
+draw();
+
+</script>
+
+</body>
+</html>
