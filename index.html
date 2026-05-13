@@ -205,10 +205,10 @@ overflow:hidden;
 
 .flying-photo{
 position:absolute;
-width:48px;
-height:48px;
+width:42px;
+height:42px;
 object-fit:cover;
-border-radius:12px;
+border-radius:50%;
 box-shadow:0 0 12px white;
 animation:flyHeart 2.5s forwards;
 }
@@ -388,19 +388,13 @@ const photos=[
 ];
 
 const positions=[
-[42,12],[48,9],[54,12],
-[36,18],[60,18],
-[31,28],[66,28],
-[28,40],[69,40],
-[31,52],[66,52],
-[36,64],[60,64],
-[43,74],[53,74],
-[48,84],
-
-[48,22],[41,30],[55,30],
-[36,42],[60,42],
-[42,54],[54,54],
-[48,63],[48,43]
+[42,12],[50,9],[58,12],
+[34,20],[43,21],[57,21],[66,20],
+[28,31],[38,32],[50,32],[62,32],[72,31],
+[31,43],[42,44],[50,45],[58,44],[69,43],
+[36,55],[45,56],[55,56],[64,55],
+[41,67],[50,69],[59,67],
+[50,81]
 ];
 
 photos.forEach((src,i)=>{
@@ -412,15 +406,14 @@ img.style.left=positions[i][0]+"%";
 img.style.top=positions[i][1]+"%";
 img.style.transform="translate(-50%,-50%)";
 gallery.appendChild(img);
-},i*180);
+},i*150);
 });
 
 setTimeout(()=>{
 gallery.style.display="none";
 document.getElementById("cake").style.display="block";
-},photos.length*180+5000);
+},photos.length*150+6000);
 }
-
 setInterval(()=>{
 let stickers=["💖","✨","🎀","🌸","💕","🥰","💫"];
 let s=document.createElement("div");
