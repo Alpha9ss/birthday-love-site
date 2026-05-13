@@ -100,7 +100,67 @@ padding:25px;
 border-radius:20px;
 backdrop-filter:blur(5px);
 }
+.envelope-container{
+margin-top:30px;
+cursor:pointer;
+animation:fade 2s;
+}
 
+.envelope{
+position:relative;
+width:260px;
+height:180px;
+background:#ff4f81;
+margin:auto;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 0 25px rgba(255,105,180,0.6);
+}
+
+.flap{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#ff7aa2;
+clip-path:polygon(0 0, 50% 55%, 100% 0);
+transform-origin:top;
+transition:1s;
+z-index:2;
+}
+
+.letter-inside{
+position:absolute;
+width:90%;
+height:85%;
+background:white;
+color:black;
+left:5%;
+top:8%;
+border-radius:10px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:40px;
+transition:1s;
+z-index:1;
+}
+
+.envelope.open .flap{
+transform:rotateX(180deg);
+}
+
+.envelope.open .letter-inside{
+transform:translateY(-120px);
+}
+
+.tap-text{
+margin-top:15px;
+font-size:22px;
+color:pink;
+text-shadow:0 0 10px pink;
+}
 .photos{
 margin-top:25px;
 display:flex;
@@ -173,7 +233,21 @@ transform:translateY(0);
 
 <h1>Happy Birthday My Love ❤️</h1>
 
-<button onclick="openLetter()">Open Your Letter 💌</button>
+<div class="envelope-container" onclick="openLetter()">
+
+<div class="envelope">
+
+<div class="flap"></div>
+
+<div class="letter-inside">
+💌
+</div>
+
+</div>
+
+<p class="tap-text">Tap The Letter ❤️</p>
+
+</div>
 
 <div id="letter">
 
@@ -256,7 +330,17 @@ birthday.style.display = "block";
 
 function openLetter(){
 
+const envelope = document.querySelector(".envelope");
+
+envelope.classList.add("open");
+
+setTimeout(() => {
+
 document.getElementById("letter").style.display = "block";
+
+document.querySelector(".envelope-container").style.display = "none";
+
+},1200);
 
 }
 
